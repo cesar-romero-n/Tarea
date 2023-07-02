@@ -1,0 +1,87 @@
+{% load bootstrap4 %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+    <head>
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        <style>
+            .titulo{
+                background-color:rgb(80, 30, 10);
+                border-radius: 20px;
+                padding: 10px;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+            h1{
+                color:white;
+                font-size: xxx-large;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="titulo" align="center">
+            <h1>Productos</h1>
+                <div align="center"> <!-- Se agrega botón de Formulario, para moverse entre páginas html-->
+                <a class="btn btn-primary"  href={% url 'formulario' %}>Ir a Formulario</a>
+                </div>
+        </div>
+        <!-- contenido -->
+        {% block content %}
+        <div align="center">
+            <div style="width: 100%">
+                <table class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                # de producto
+                            </th>
+                            <th scope="col">
+                               Nombre
+                            </th>
+                            <th scope="col">
+                               Descripción
+                            </th>
+                            <th scope="col">
+                               Precio
+                            </th>
+                            <th scope="col">
+                               Fecha de registro
+                            </th>
+                            <th scope="col">
+                               Estatus
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody> <!-- Recorre la base de datos, para mostrar la información de los productos -->
+                        {% for producto in productosminimos %}
+                        <tr>
+                            <td scope="row">
+                                {{ producto.pk }}
+                            </td>
+                            <td>
+                                {{ producto.nombre }}
+                            </td>
+                            <td>
+                                {{ producto.descripcion }}
+                            </td>
+                            <td>
+                                {{ producto.precio }}
+                            </td>
+                            <td>
+                                {{ producto.fecha_de_registro }}
+                            </td>
+                            <td>
+                                {% if producto.estatus != 0 %} <!-- función if, para validar si el producto tiene disponibilidad -->
+                                    {{ producto.estatus }}
+                                {% else %}
+                                    No disponible
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endblock %}
+    </body>
+</html>

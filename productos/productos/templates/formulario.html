@@ -1,0 +1,63 @@
+{% load bootstrap4 %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+    <head>
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        <style>
+            .titulo{
+                background-color:rgb(80, 30, 10);
+                border-radius: 20px;
+                padding: 10px;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+            h1{
+                color:white;
+                font-size: xxx-large;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="titulo" align="center">
+            <h1>Productos</h1>
+                <div align="center"><!-- Se agrega botón de Productos, para moverse entre páginas html-->
+                <a class="btn btn-primary"  href={% url 'productos' %}>Ir a tabla de Productos</a>
+                </div>
+        </div>
+        
+        <!-- contenido -->
+        {% block content %}
+        <div align="center">
+            <div style="width: 100%">
+                <br>
+                <br>
+                <form method="post">
+                    {% csrf_token %} <!-- se deja sólo el formulario y el botón de Guardar, para enviar info a la BD-->
+                    <div class="form-group">
+                        <label for="{{ form.nombre.id_for_label}}">Nombre</label>
+                        {{ form.nombre|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.descripcion.id_for_label}}">Descripción</label>
+                        {{ form.descripcion|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.precio.id_for_label}}">Precio</label>
+                        {{ form.precio|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.fecha_de_registro.id_for_label}}">Fecha de registro</label>
+                        {{ form.fecha_de_registro|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.estatus.id_for_label}}">Estatus palomeado para indicar disponible</label>
+                        {{ form.estatus|add_class:"form-control" }}
+                    </div>
+                    <button class="btn btn-primary" type="submit">Guardar</button>
+                </form>
+            </div>
+
+        </div>
+        {% endblock %}
+    </body>
+</html>
